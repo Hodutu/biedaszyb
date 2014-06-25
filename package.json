@@ -1,0 +1,8 @@
+{
+  "name": "biedaszyb",
+  "version": "0.0.1",
+  "dependencies": {
+    "request": "~2.34.0",
+    "jsdom": "~0.10.4"
+  }
+}
