@@ -1,3 +1,5 @@
+'use strict';
+
 var filestube = require('filestube-client');
 var filebit = require('filebit-client');
 
