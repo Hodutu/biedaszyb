@@ -27,9 +27,9 @@ var biedaszyb = function(title, first, last, mainCB) {
         console.log(finalLinks);
         mainCB(finalLinks);
         } else {
-          episode++
+          episode++;
           if (episode < 10) {
-            episode = "0" + episode;
+            episode = '0' + episode;
           }
           DownloadVideo(title+episode);
         }
@@ -51,15 +51,15 @@ var biedaszyb = function(title, first, last, mainCB) {
           stripLinks(globalLinks);
         } else {
           console.log('NO LINKS TO STRIP');
-          if (parseInt(episode, 10) === maxEpisodes) {//(finalLinks.length === 19) {
+          if (parseInt(episode, 10) === maxEpisodes) {
             console.log('DONE.....');
             console.log('LINKS:');
             console.log(finalLinks);
             mainCB(finalLinks);
           } else {
-            episode++
+            episode++;
             if (episode < 10) {
-              episode = "0" + episode;
+              episode = '0' + episode;
             }
             DownloadVideo(title+episode);
           }
@@ -85,10 +85,10 @@ var biedaszyb = function(title, first, last, mainCB) {
   var maxEpisodes = last;
   var episode = first;
   if (episode < 10) {
-    episode = "0" + episode;
+    episode = '0' + episode;
   }
 
   DownloadVideo(title + episode);
-}
+};
 
 module.exports = biedaszyb;
