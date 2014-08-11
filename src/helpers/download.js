@@ -34,9 +34,52 @@ var dwnld = function(title, first, last, mainCB) {
     }
   };
 
+  var stripLinks = function(linkToStrip) {
+    //debug.log('CURRENT LINK:', currentLink, linkToStrip);
+    filestube.stripFinalLink(linkToStrip[currentLink], function(link) {
+      debug.log('LINK AFTER STRIPING:', link);
+      if (link) {
+        filebit.login(function(loggedIn) {
+          if (loggedIn) {
+            filebit.getLinks(link, downloadAction);
+          }
+        });
+      } else {
+        currentLink++;
+        if (globalLinks[currentLink]) {
+          stripLinks(globalLinks);
+        } else {
+          debug.log('NO LINKS TO STRIP');
+          if (parseInt(episode, 10) === maxEpisodes) {//(finalLinks.length === 19) {
+            debug.log('DONE.....');
+            debug.log('LINKS:');
+            debug.log(finalLinks);
+            mainCB(finalLinks);
+          } else {
+            episode++
+            if (episode < 10) {
+              episode = "0" + episode;
+            }
+            DownloadVideo(titles+episode);
+          }
+        }
+        //DownloadVideo(titles + (episode < 10 ? '0'+episode : episode));
+      }
+    });
+  };
 
-
-
+  var DownloadVideo = function(title) {
+    filestube.getLinks(
+      title,
+      {
+        //type: 'mkv'
+      },
+      function(urls) {
+        globalLinks = urls;
+        stripLinks(urls);
+      }
+    );
+  };
 
   var titles = title;
   var maxEpisodes = last;
@@ -48,53 +91,4 @@ var dwnld = function(title, first, last, mainCB) {
   DownloadVideo(titles + episode);
 }
 
-var stripLinks = function(linkToStrip) {
-  //debug.log('CURRENT LINK:', currentLink, linkToStrip);
-  filestube.stripFinalLink(linkToStrip[currentLink], function(link) {
-    debug.log('LINK AFTER STRIPING:', link);
-    if (link) {
-      filebit.login(function(loggedIn) {
-        if (loggedIn) {
-          filebit.getLinks(link, downloadAction);
-        }
-      });
-    } else {
-      currentLink++;
-      if (globalLinks[currentLink]) {
-        stripLinks(globalLinks);
-      } else {
-        debug.log('NO LINKS TO STRIP');
-        //if (parseInt(episode, 10) === maxEpisodes) {//(finalLinks.length === 19) {
-          debug.log('DONE.....');
-          debug.log('LINKS:');
-          debug.log(finalLinks);
-          //mainCB(finalLinks);
-        // } else {
-        //   episode++
-        //   if (episode < 10) {
-        //     episode = "0" + episode;
-        //   }
-        //   DownloadVideo(titles+episode);
-        // }
-      }
-      //DownloadVideo(titles + (episode < 10 ? '0'+episode : episode));
-    }
-  });
-};
-
-var DownloadVideo = function(title) {
-  filestube.getLinks(
-    title,
-    {
-      //type: 'mkv'
-    },
-    function(urls) {
-      globalLinks = urls;
-      stripLinks(urls);
-    }
-  );
-};
-
-module.exports = function(){
-  DownloadVideo("Sprzedawcy 1994");
-}//dwnld;
+module.exports = dwnld;

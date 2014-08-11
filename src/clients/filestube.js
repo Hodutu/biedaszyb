@@ -51,12 +51,12 @@ var Filestube_API = (function() {
           }
 
           try {
-            if (!hasMoreParts && properEpisode) {
+            //if (!hasMoreParts && properEpisode) {
               var link = result.querySelector('.rL').href;
               link = 'http://www.filestube.to/' + link.split('/').pop();
               urls.push(link);
               console.log('OK!', link);
-            }
+            //}
           } catch (e) {
             console.log('ERROR: ', e);
           }
