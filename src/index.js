@@ -1,5 +1,5 @@
 var http = require('http');
-var dwnld = require('./helpers/download-one');
+var dwnld = require('./helpers/download');
 
 http.createServer(function (req, res) {
   var args = req.url.slice(1).split('/');

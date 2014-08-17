@@ -26,7 +26,7 @@ var Filestube_API = (function() {
         }
 
         var results = d.querySelectorAll('.r');
-
+        //console.log('no czesc', results);
         for (var i = 0, j = results.length; i< j; i++) {
           var result = results[i];
           //debug.log(result.querySelector('.resultDescription').textContent);
@@ -53,7 +53,7 @@ var Filestube_API = (function() {
           try {
             //if (!hasMoreParts && properEpisode) {
               var link = result.querySelector('.rL').href;
-              link = 'http://www.filestube.to/' + link.split('/').pop();
+              //link = 'http://www.filestube.to/' + link.split('/').pop();
               urls.push(link);
               console.log('OK!', link);
             //}
