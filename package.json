@@ -11,5 +11,8 @@
   "scripts": {
     "test": "node tests/biedaszyb-tests.js",
     "lint": "node node_modules/jshint/bin/jshint ."
+  },
+  "dependencies": {
+    "filestube-client": "^0.2.0"
   }
 }
