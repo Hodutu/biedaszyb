@@ -13,6 +13,6 @@
     "lint": "node node_modules/jshint/bin/jshint ."
   },
   "dependencies": {
-    "filestube-client": "^0.2.0"
+    "filestube-client": "^0.5.0"
   }
 }
