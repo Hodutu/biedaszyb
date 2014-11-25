@@ -5,9 +5,9 @@ var debug = require('./debug');
 var currentLink = 0;
 var globalLinks = [];
 var finalLinks = [];
-
+var downloadAction;
 var dwnld = function(title, first, last, mainCB) {
-  downloadAction = function(body) {
+var downloadAction = function downloadAction(body) {
     if (!body) {
       debug.log('Link unactive, trying another one...');
       currentLink++;
@@ -34,10 +34,6 @@ var dwnld = function(title, first, last, mainCB) {
     }
   };
 
-
-
-
-
   var titles = title;
   var maxEpisodes = last;
   var episode = first;
@@ -55,6 +51,7 @@ var stripLinks = function(linkToStrip) {
     if (link) {
       filebit.login(function(loggedIn) {
         if (loggedIn) {
+          console.log('yo:', typeof downloadAction);
           filebit.getLinks(link, downloadAction);
         }
       });
@@ -86,7 +83,7 @@ var DownloadVideo = function(title) {
   filestube.getLinks(
     title,
     {
-    //  type: 'mkv'
+      //type: 'mp4'
     },
     function(urls) {
       globalLinks = urls;
@@ -95,6 +92,6 @@ var DownloadVideo = function(title) {
   );
 };
 
-module.exports = function(){
-  DownloadVideo("Testosteron 2007");
+module.exports = function() {
+  DownloadVideo("redirected");
 }//dwnld;
