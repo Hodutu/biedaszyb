@@ -23,6 +23,7 @@ var Filebit_API = (function() {
   };
 
   var getLinks = function(link, callback) {
+    console.log('elo:', typeof callback);
     debug.log('Intermediate link:', link);
     request({
         url: finalUrl,
@@ -33,9 +34,12 @@ var Filebit_API = (function() {
           t: +(new Date())
         }
     },
-
     function(error,response,body) {
-      callback(JSON.parse(body)[0].array.downloadStream);
+      try {
+        callback(JSON.parse(body)[0].array.downloadStream);
+      } catch(e){
+        callback({});
+      }
     });
 
   };
