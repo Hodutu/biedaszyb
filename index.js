@@ -1,9 +1,16 @@
 'use strict';
 
+var fc = require('filestube-client');
+
 var biedaszyb = (function(){
 
   var show = function(){};
-  var file = function(){};
+  var file = function(title, cb) {
+    console.log('szukam');
+    fc.getAll(title, {}, function(links) {
+      console.log(links);
+    });
+  };
 
   return {
     show: show,
@@ -14,4 +21,4 @@ var biedaszyb = (function(){
 module.exports = biedaszyb;
 
 // biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-// biedaszyb.file(title, callback);
+biedaszyb.file('Blokersi');//, callback);
