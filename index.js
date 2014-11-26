@@ -35,21 +35,23 @@ var biedaszyb = (function(){
 
   var show = function(){};
   var file = function(title, cb) {
-    console.log('szukam');
-    fc.getAll(title, {}, function(links) {
-      links.forEach(function(link) {
+    // console.log('szukam');
+    // fc.getAll(title, {}, function(links) {
+    //   console.log('links', links);
+    //   links.forEach(function(link) {
         // XXX: multiple links support!
         // This should work also for Array of links
-        filebitRequest(link[0], function(err, result){
+        //filebitRequest(link[0], function(err, result){
+        filebitRequest('http://d01.megashares.com/dl/Eoq4b6K/How.I.Met.Your.Mother.S01E01.DVDRip.XviD-TOPAZ.avi', function(err, result){
           if (err){
-            console.log('cannot get anything smart for ', link);
+            console.log(err);
             return;
           }
 
           console.log('link finished: ', result);
         });
-      });
-    });
+    //   });
+    // });
   };
 
   return {
@@ -61,4 +63,4 @@ var biedaszyb = (function(){
 module.exports = biedaszyb;
 
 // biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-biedaszyb.file('Symetria');//, callback);
+biedaszyb.file('How I Met Your Mother S01E01');//, callback);
