@@ -35,7 +35,17 @@ var filebitRequest = function(link, cb) {
 
 var biedaszyb = (function(){
 
-  var show = function(){};
+  var show = function(title, season, firstEpisode, howMany, cb){
+    var titles = [];
+    var episode;
+    for (var i=0; i<howMany; i++) {
+      episode = (firstEpisode + i);
+      episode = episode < 10 ? '0' + episode : episode;
+      titles.push(title + ' S' + season + 'E' + episode);
+    };
+
+    console.log(titles);
+  };
   var file = function(title, cb) {
     fc.getAll(title, {}, function(links) {
 
@@ -71,8 +81,12 @@ var biedaszyb = (function(){
 
 module.exports = biedaszyb;
 
-// biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-biedaszyb.file('Fargo S01E01', function(err, result) {
+biedaszyb.show('American Dad!', 10, 1, 8, function(err, result) {
   console.log('ERR', err);
   console.log('NO HEJKA!', result);
 });
+
+// biedaszyb.file('Fargo S01E01', function(err, result) {
+//   console.log('ERR', err);
+//   console.log('NO HEJKA!', result);
+// });
