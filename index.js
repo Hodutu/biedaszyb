@@ -2,27 +2,32 @@
 
 var fc = require('filestube-client');
 var fbc = require('filebit-client');
+var biedaconfig = require('biedaconfig.json');
 
 var filebitRequest = function(link, cb) {
-  fbc.login('my-login', 'my-password', function(error, loggedIn){
-    if (error) {
-      // we could not logged in
-      cb(error);
-      return;
-    }
-
-    // We are logged in, so let's download some file!
-    fbc.getLink(link, function(error, finalLink) {
+  fbc.login(
+    biedaconfig.filebit.user,
+    biedaconfig.filebit.password,
+    function(error, loggedIn){
       if (error) {
-        // we could not get proper link
+        // we could not logged in
         cb(error);
         return;
       }
 
-      // We have nice link to download!
-      cb(null, finalLink);
-    });
-  });
+      // We are logged in, so let's download some file!
+      fbc.getLink(link, function(error, finalLink) {
+        if (error) {
+          // we could not get proper link
+          cb(error);
+          return;
+        }
+
+        // We have nice link to download!
+        cb(null, finalLink);
+      });
+    }
+  );
 };
 
 var biedaszyb = (function(){
