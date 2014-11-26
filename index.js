@@ -35,19 +35,24 @@ var biedaszyb = (function(){
 
   var show = function(){};
   var file = function(title, cb) {
-    console.log('szukam...');
     fc.getAll(title, {}, function(links) {
       eachSeries(links, function(link, esCb) {
+
         // XXX: multiple links support!
         // This should work also for Array of links
+        if (link.length > 1) {
+          esCb();
+          return;
+        }
+
         filebitRequest(link[0], function(err, result) {
           if (err) {
             esCb();
-            console.log(err);
             return;
           }
-
           cb(result);
+        }, function(e){
+          console.log('---', e);
         });
       });
     });
@@ -62,6 +67,6 @@ var biedaszyb = (function(){
 module.exports = biedaszyb;
 
 // biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-biedaszyb.file('How I Met Your Mother S01E01', function(result) {
+biedaszyb.file('how i met your mother s01e03', function(result) {
   console.log('NO HEJKA!', result);
 });//, callback);
