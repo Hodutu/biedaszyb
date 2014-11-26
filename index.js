@@ -42,7 +42,7 @@ var biedaszyb = (function(){
       episode = (firstEpisode + i);
       episode = episode < 10 ? '0' + episode : episode;
       titles.push(title + ' S' + season + 'E' + episode);
-    };
+    }
 
     console.log(titles);
   };
