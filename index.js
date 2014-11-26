@@ -56,7 +56,7 @@ var biedaszyb = (function(){
       });
     }, function() {
       cb(null, finalLinks);
-    })
+    });
   };
 
   var file = function(title, cb) {
