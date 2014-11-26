@@ -44,7 +44,7 @@ var biedaszyb = (function(){
       }
       eachSeries(links, function(link, esCb) {
         // XXX: multiple links support!
-        // This should work also for Array of links
+        // This should work also for Arrays of links
         if (link.length > 1) {
           esCb();
           return;
