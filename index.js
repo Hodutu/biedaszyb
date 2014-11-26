@@ -70,7 +70,7 @@ var biedaszyb = (function(){
 module.exports = biedaszyb;
 
 // biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-biedaszyb.file('Blokersi', function(err, result) {
+biedaszyb.file('Fargo S01E01', function(err, result) {
   console.log('ERR', err);
   console.log('NO HEJKA!', result);
 });//, callback);
