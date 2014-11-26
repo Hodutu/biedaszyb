@@ -26,3 +26,5 @@ node_modules
 
 passwords.js
 .DS_Store
+
+biedaconfig.json
