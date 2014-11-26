@@ -35,9 +35,8 @@ var biedaszyb = (function(){
 
   var show = function(){};
   var file = function(title, cb) {
-    console.log('szukam');
+    console.log('szukam...');
     fc.getAll(title, {}, function(links) {
-      console.log('links', links);
       links.forEach(function(link) {
         // XXX: multiple links support!
         // This should work also for Array of links
