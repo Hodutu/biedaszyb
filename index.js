@@ -2,7 +2,7 @@
 
 var fc = require('filestube-client');
 var fbc = require('filebit-client');
-var biedaconfig = require('biedaconfig.json');
+var biedaconfig = require('./biedaconfig.json');
 
 var filebitRequest = function(link, cb) {
   fbc.login(
@@ -24,6 +24,7 @@ var filebitRequest = function(link, cb) {
         }
 
         // We have nice link to download!
+        console.log(finalLink);
         cb(null, finalLink);
       });
     }
@@ -36,8 +37,10 @@ var biedaszyb = (function(){
   var file = function(title, cb) {
     console.log('szukam');
     fc.getAll(title, {}, function(links) {
-      links.forEach(function(link){
-        filebitRequest(link, function(err, result){
+      links.forEach(function(link) {
+        // XXX: multiple links support!
+        // This should work also for Array of links
+        filebitRequest(link[0], function(err, result){
           if (err){
             console.log('cannot get anything smart for ', link);
             return;
@@ -58,4 +61,4 @@ var biedaszyb = (function(){
 module.exports = biedaszyb;
 
 // biedaszyb.show(title, season, firstEpisode, lastEpisode, callback);
-biedaszyb.file('Blokersi');//, callback);
+biedaszyb.file('Symetria');//, callback);
