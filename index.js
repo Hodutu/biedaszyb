@@ -5,7 +5,7 @@ var biedaconfig = require('./biedaconfig.json');
 var fc = require('filestube-client');
 var fbc = require('filebit-client');
 
-var eachSeries = require('async').eachSeries;
+var async = require('async');
 
 var filebitRequest = function(link, cb) {
   fbc.login(
@@ -37,6 +37,8 @@ var biedaszyb = (function(){
 
   var show = function(title, season, firstEpisode, howMany, cb){
     var titles = [];
+    var finalLinks = [];
+
     var episode;
     for (var i=0; i<howMany; i++) {
       episode = (firstEpisode + i);
@@ -44,15 +46,26 @@ var biedaszyb = (function(){
       titles.push(title + ' S' + season + 'E' + episode);
     }
 
-    console.log(titles);
+    async.each(titles, function(element, callback) {
+      file(element, function(err, result){
+        if (!err) {
+          finalLinks.push(result);
+        }
+
+        cb();
+      });
+    }, function() {
+      cb(null, finalLinks);
+    })
   };
+
   var file = function(title, cb) {
     fc.getAll(title, {}, function(links) {
 
       if (links.length === 0) {
         cb(new Error('No results'));
       }
-      eachSeries(links, function(link, esCb) {
+      async.eachSeries(links, function(link, esCb) {
         // XXX: multiple links support!
         // This should work also for Arrays of links
         if (link.length > 1) {
@@ -81,7 +94,7 @@ var biedaszyb = (function(){
 
 module.exports = biedaszyb;
 
-biedaszyb.show('American Dad!', 10, 1, 8, function(err, result) {
+biedaszyb.show('American Dad!', 10, 1, 2, function(err, result) {
   console.log('ERR', err);
   console.log('NO HEJKA!', result);
 });
