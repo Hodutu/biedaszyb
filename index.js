@@ -3,7 +3,6 @@
 var fc = require('filestube-client');
 var fbc = require('filebit-client');
 
-var logged = false;
 var filebitRequest = function(link, cb) {
   fbc.login('my-login', 'my-password', function(error, loggedIn){
     if (error) {
