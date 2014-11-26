@@ -1,8 +1,10 @@
 'use strict';
 
+var biedaconfig = require('./biedaconfig.json');
+
 var fc = require('filestube-client');
 var fbc = require('filebit-client');
-var biedaconfig = require('./biedaconfig.json');
+
 var eachSeries = require('async').eachSeries;
 
 var filebitRequest = function(link, cb) {
@@ -73,4 +75,4 @@ module.exports = biedaszyb;
 biedaszyb.file('Fargo S01E01', function(err, result) {
   console.log('ERR', err);
   console.log('NO HEJKA!', result);
-});//, callback);
+});
