@@ -31,7 +31,7 @@ var dwnld = function(title, first, last, mainCB) {
           }
           DownloadVideo(titles+episode);
         }
-    }
+      }
   };
 
   var stripLinks = function(linkToStrip) {
@@ -72,7 +72,7 @@ var dwnld = function(title, first, last, mainCB) {
     filestube.getLinks(
       title,
       {
-        //type: 'mkv'
+      //  type: 'mkv'
       },
       function(urls) {
         globalLinks = urls;
