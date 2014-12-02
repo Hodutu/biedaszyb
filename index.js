@@ -61,21 +61,13 @@ var biedaszyb = (function(){
 
   var file = function(title, cb) {
     gf(title, function(err, links) {
-      console.log(links);
       if (err) {
         cb(err);
         return;
       }
 
       async.eachSeries(links, function(link, next) {
-        // XXX: multiple links support!
-        // This should work also for Arrays of links
-        if (link.length > 1) {
-          next();
-          return;
-        }
-
-        filebitRequest(link[0], function(err, result) {
+        filebitRequest(link, function(err, result) {
           if (err) {
             next();
             return;
@@ -83,7 +75,6 @@ var biedaszyb = (function(){
           cb(null, result);
         });
       }, function(e) {
-        console.log('wszystko zjebane!');
         cb(new Error('No results found!'));
       });
     });
