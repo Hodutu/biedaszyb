@@ -35,7 +35,7 @@ var filebitRequest = function(link, cb) {
 
 var biedaszyb = (function(){
 
-  var show = function(title, season, firstEpisode, howMany, cb){
+  var show = function(title, season, firstEpisode, howMany, cb) {
     var titles = [];
     var finalLinks = [];
 
@@ -48,7 +48,7 @@ var biedaszyb = (function(){
 
     async.eachSeries(titles, function(element, next) {
       file(element, function(error, result) {
-        
+
         if (!error) {
           finalLinks.push(result);
         }
