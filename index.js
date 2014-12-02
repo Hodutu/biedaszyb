@@ -2,7 +2,7 @@
 
 var biedaconfig = require('./biedaconfig.json');
 
-var fc = require('filestube-client');
+var gf = require('gimme-files');
 var fbc = require('filebit-client');
 
 var async = require('async');
@@ -35,7 +35,7 @@ var filebitRequest = function(link, cb) {
 
 var biedaszyb = (function(){
 
-  var show = function(title, season, firstEpisode, howMany, cb){
+  var show = function(title, season, firstEpisode, howMany, cb) {
     var titles = [];
     var finalLinks = [];
 
@@ -46,13 +46,13 @@ var biedaszyb = (function(){
       titles.push(title + ' S' + season + 'E' + episode);
     }
 
-    async.each(titles, function(element, callback) {
-      file(element, function(err, result){
-        if (!err) {
+    async.eachSeries(titles, function(element, next) {
+      file(element, function(error, result) {
+
+        if (!error) {
           finalLinks.push(result);
         }
-
-        cb();
+        next();
       });
     }, function() {
       cb(null, finalLinks);
@@ -60,27 +60,21 @@ var biedaszyb = (function(){
   };
 
   var file = function(title, cb) {
-    fc.getAll(title, {}, function(links) {
-
-      if (links.length === 0) {
-        cb(new Error('No results'));
+    gf(title, function(err, links) {
+      if (err) {
+        cb(err);
+        return;
       }
-      async.eachSeries(links, function(link, esCb) {
-        // XXX: multiple links support!
-        // This should work also for Arrays of links
-        if (link.length > 1) {
-          esCb();
-          return;
-        }
 
-        filebitRequest(link[0], function(err, result) {
+      async.eachSeries(links, function(link, next) {
+        filebitRequest(link, function(err, result) {
           if (err) {
-            esCb();
+            next();
             return;
           }
           cb(null, result);
         });
-      }, function(e){
+      }, function(e) {
         cb(new Error('No results found!'));
       });
     });
@@ -93,13 +87,3 @@ var biedaszyb = (function(){
 })();
 
 module.exports = biedaszyb;
-
-biedaszyb.show('American Dad!', 10, 1, 2, function(err, result) {
-  console.log('ERR', err);
-  console.log('NO HEJKA!', result);
-});
-
-// biedaszyb.file('Fargo S01E01', function(err, result) {
-//   console.log('ERR', err);
-//   console.log('NO HEJKA!', result);
-// });
