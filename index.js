@@ -45,10 +45,10 @@ var biedaszyb = (function(){
       episode = episode < 10 ? '0' + episode : episode;
       titles.push(title + ' S' + season + 'E' + episode);
     }
-    console.log('titles', titles);
+
     async.eachSeries(titles, function(element, next) {
       file(element, function(error, result) {
-        console.log('eldo', element, result);
+        
         if (!error) {
           finalLinks.push(result);
         }
@@ -87,12 +87,3 @@ var biedaszyb = (function(){
 })();
 
 module.exports = biedaszyb;
-
-biedaszyb.show('American Dad!', 10, 1, 2, function(err, result) {
-  console.log('ERR', err);
-  console.log('NO HEJKA!', result);
-});
-// biedaszyb.file('American Dad! S10E02', function(err, result) {
-//   console.log('ERR', err);
-//   console.log('NO HEJKA!', result);
-// });
