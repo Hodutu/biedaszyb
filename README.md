@@ -1,5 +1,5 @@
 # biedaszyb by [@michalbe](http://github.com/michalbe) #
-Massive search for free, unlimit files on paid hostings
+Massive search for files with no download limits on paid hostings
 
 
 ### What? ###
