@@ -2,7 +2,7 @@
 
 var biedaconfig = require('./biedaconfig.json');
 
-var fc = require('filestube-client');
+var gf = require('gimme-files');
 var fbc = require('filebit-client');
 
 var async = require('async');
@@ -45,14 +45,14 @@ var biedaszyb = (function(){
       episode = episode < 10 ? '0' + episode : episode;
       titles.push(title + ' S' + season + 'E' + episode);
     }
-
-    async.each(titles, function(element, callback) {
-      file(element, function(err, result){
-        if (!err) {
+    console.log('titles', titles);
+    async.eachSeries(titles, function(element, next) {
+      file(element, function(error, result) {
+        console.log('eldo', element, result);
+        if (!error) {
           finalLinks.push(result);
         }
-
-        cb();
+        next();
       });
     }, function() {
       cb(null, finalLinks);
@@ -60,27 +60,30 @@ var biedaszyb = (function(){
   };
 
   var file = function(title, cb) {
-    fc.getAll(title, {}, function(links) {
-
-      if (links.length === 0) {
-        cb(new Error('No results'));
+    gf(title, function(err, links) {
+      console.log(links);
+      if (err) {
+        cb(err);
+        return;
       }
-      async.eachSeries(links, function(link, esCb) {
+
+      async.eachSeries(links, function(link, next) {
         // XXX: multiple links support!
         // This should work also for Arrays of links
         if (link.length > 1) {
-          esCb();
+          next();
           return;
         }
 
         filebitRequest(link[0], function(err, result) {
           if (err) {
-            esCb();
+            next();
             return;
           }
           cb(null, result);
         });
-      }, function(e){
+      }, function(e) {
+        console.log('wszystko zjebane!');
         cb(new Error('No results found!'));
       });
     });
@@ -98,8 +101,7 @@ biedaszyb.show('American Dad!', 10, 1, 2, function(err, result) {
   console.log('ERR', err);
   console.log('NO HEJKA!', result);
 });
-
-// biedaszyb.file('Fargo S01E01', function(err, result) {
+// biedaszyb.file('American Dad! S10E02', function(err, result) {
 //   console.log('ERR', err);
 //   console.log('NO HEJKA!', result);
 // });
