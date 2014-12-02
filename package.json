@@ -2,7 +2,7 @@
   "name": "biedaszyb",
   "version": "0.0.1",
   "author": "Michal Budzynski <michal@virtualdesign.pl>",
-  "repository": "git@github.com:michalbe/biedaszyb.git",
+  "repository": "git@github.com:Hodutu/biedaszyb.git",
   "devDependencies": {
     "assert": "^1.1.2",
     "jshint": "^2.5.10",
