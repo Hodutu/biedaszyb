@@ -40,6 +40,8 @@ var biedaszyb = (function(){
     var finalLinks = [];
 
     var episode;
+    season = season < 10 ? '0' + season : season;
+
     for (var i=0; i<howMany; i++) {
       episode = (firstEpisode + i);
       episode = episode < 10 ? '0' + episode : episode;

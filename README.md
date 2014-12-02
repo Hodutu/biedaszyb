@@ -1,5 +1,5 @@
 # biedaszyb by [@michalbe](http://github.com/michalbe) #
-Search for free, unlimit files on paid hostings
+Massive search for free, unlimit files on paid hostings
 
 
 ### What? ###
@@ -27,7 +27,11 @@ Then:
 var biedaszyb = require('biedaszyb');
 
 // to grab just one file
-biedaszyb.show("Blok ekipa", 1, 1, 20, function(err, result){
+biedaszyb.show("Blok ekipa", 1, 1, 5, function(err, result){
   console.log(result);
-  // 'http://yoelo.jczc.hwdp/3rtk7q1qv87a' <- file that could be downloaded without any limits
+  // ['http://yoelo.jczc.hwdp/3rtk7q1qv87a1' <- Array of 5 episodes of 1st season of 'Blok Ekipa' that can be downloaded without any limits
+  // 'http://yoelo.jczc.hwdp/3rtk7q1qv87a2'
+  // 'http://yoelo.jczc.hwdp/3rtk7q1qv87a3'
+  // 'http://yoelo.jczc.hwdp/3rtk7q1qv87a4'
+  // 'http://yoelo.jczc.hwdp/3rtk7q1qv87a5']
 });
